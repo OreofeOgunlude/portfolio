@@ -419,6 +419,73 @@ section.spotlight { background: linear-gradient(180deg, var(--bg-warm), var(--bg
   .product-preview .pp-user-email { font-size: 11px; }
 }
 
+/* ============ See It In Action — typing + reveal animation ============ */
+/* Blinking cursor appended to the search text while typing */
+.product-preview .pp-search-text.pp-typing::after {
+  content: '';
+  display: inline-block;
+  width: 1.5px;
+  height: 13px;
+  background: var(--ink);
+  margin-left: 2px;
+  vertical-align: -2px;
+  animation: pp-cursor-blink 0.72s infinite;
+}
+@keyframes pp-cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Suggested cards: dim non-active ones during typing so attention goes to the search bar */
+.product-preview .pp-suggest-card.pp-dimmed {
+  opacity: 0.35;
+  transition: opacity 0.4s ease;
+}
+.product-preview .pp-suggest-card.pp-undimmed {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+/* Answer card hidden initially, fades + slides up on reveal */
+.product-preview .pp-answer-card.pp-animated {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.product-preview .pp-answer-card.pp-animated.pp-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Stagger the answer card children for a polished reveal */
+.product-preview .pp-answer-card.pp-animated > * {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.product-preview .pp-answer-card.pp-animated.pp-revealed > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+.product-preview .pp-answer-card.pp-animated.pp-revealed > *:nth-child(1) { transition-delay: 0.10s; }
+.product-preview .pp-answer-card.pp-animated.pp-revealed > *:nth-child(2) { transition-delay: 0.25s; }
+.product-preview .pp-answer-card.pp-animated.pp-revealed > *:nth-child(3) { transition-delay: 0.40s; }
+.product-preview .pp-answer-card.pp-animated.pp-revealed > *:nth-child(4) { transition-delay: 0.55s; }
+.product-preview .pp-answer-card.pp-animated.pp-revealed > *:nth-child(5) { transition-delay: 0.70s; }
+.product-preview .pp-answer-card.pp-animated.pp-revealed > *:nth-child(6) { transition-delay: 0.85s; }
+.product-preview .pp-answer-card.pp-animated.pp-revealed > *:nth-child(7) { transition-delay: 1.00s; }
+
+/* Respect reduced-motion preferences: skip the animation entirely */
+@media (prefers-reduced-motion: reduce) {
+  .product-preview .pp-answer-card.pp-animated,
+  .product-preview .pp-answer-card.pp-animated > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .product-preview .pp-search-text.pp-typing::after { display: none; }
+  .product-preview .pp-suggest-card.pp-dimmed { opacity: 1 !important; }
+}
+
 /* ============ HAZOP TIMELINE ============ */
 .hazop-timeline { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 14px; padding: 28px 32px; margin: 36px 0 0; }
 .hazop-timeline .ht-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; flex-wrap: wrap; gap: 10px; }
@@ -1474,7 +1541,6 @@ footer .footer-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px;
           <div class="panel-right">
             <img src="images/team-photo.jpg" alt="Capstone team with industry sponsors" style="width: 100%; aspect-ratio: 1920 / 1280; object-fit: cover; border-radius: 12px; display: block;">
             <img src="images/certificate.jpg" alt="First place capstone certificate, Western University 2025" style="width: 100%; aspect-ratio: 1925 / 1487; object-fit: cover; border-radius: 12px; display: block;">
-           
           </div>
         </div>
 
@@ -1875,6 +1941,79 @@ const skillObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.3 });
 document.querySelectorAll('.skill-bars').forEach(el => skillObserver.observe(el));
+</script>
+
+<script>
+// ============ See It In Action — typing + answer reveal ============
+(function() {
+  var searchText = document.querySelector('.product-preview .pp-search-text');
+  var answerCard = document.querySelector('.product-preview .pp-answer-card');
+  var mockup     = document.querySelector('.product-preview .pp-mockup');
+  if (!searchText || !answerCard || !mockup) return;
+
+  // Respect reduced-motion preferences — leave everything as-is
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var fullQuery   = searchText.textContent.trim();
+  var typingSpeed = 32;   // ms per character
+  var startDelay  = 450;  // ms before typing begins (settle into view)
+  var revealPause = 550;  // ms after typing completes, before answer appears
+  var suggestCards = document.querySelectorAll('.product-preview .pp-suggest-card');
+
+  // Initial state: clear the search bar, show cursor, hide the answer
+  searchText.textContent = '';
+  searchText.classList.add('pp-typing');
+  answerCard.classList.add('pp-animated');
+  // Dim the suggested cards so attention sits on the search bar typing
+  suggestCards.forEach(function(card) {
+    if (!card.classList.contains('active')) card.classList.add('pp-dimmed');
+  });
+
+  var hasPlayed = false;
+
+  function playSequence() {
+    if (hasPlayed) return;
+    hasPlayed = true;
+
+    var i = 0;
+    function tick() {
+      if (i < fullQuery.length) {
+        // Slight variable speed: shorter pause on spaces feels more natural
+        var nextDelay = fullQuery[i] === ' ' ? typingSpeed * 0.7 : typingSpeed;
+        searchText.textContent = fullQuery.slice(0, i + 1);
+        i++;
+        setTimeout(tick, nextDelay);
+      } else {
+        // Typing complete: remove cursor, restore suggested cards, reveal answer
+        setTimeout(function() {
+          searchText.classList.remove('pp-typing');
+          suggestCards.forEach(function(card) {
+            card.classList.remove('pp-dimmed');
+            card.classList.add('pp-undimmed');
+          });
+          answerCard.classList.add('pp-revealed');
+        }, revealPause);
+      }
+    }
+    setTimeout(tick, startDelay);
+  }
+
+  // Play the sequence the first time the mockup scrolls into view
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          playSequence();
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    observer.observe(mockup);
+  } else {
+    // Older browsers: just play it after a short delay
+    setTimeout(playSequence, 800);
+  }
+})();
 </script>
 
 </body>
