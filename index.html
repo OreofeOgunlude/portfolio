@@ -613,6 +613,19 @@ section.spotlight { background: linear-gradient(180deg, var(--bg-warm), var(--bg
 .process-flow-strip .pfs-step.output .pfs-num { color: var(--gold-strong); }
 .process-flow-strip .pfs-arrow { display: flex; align-items: center; justify-content: center; color: var(--ink-3); font-size: 16px; font-weight: 300; padding: 0 2px; }
 @media (max-width: 1000px) { .process-flow-strip { padding: 24px; } .process-flow-strip .pfs-row { grid-template-columns: 1fr 1fr; gap: 12px; } .process-flow-strip .pfs-arrow { display: none; } }
+
+/* Capstone press card — link to external article */
+.capstone-press-card { display: block; text-decoration: none; color: inherit; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin-top: 32px; transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; }
+.capstone-press-card:hover { border-color: var(--gold-border); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(252, 211, 77, 0.10); }
+.capstone-press-card .press-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.capstone-press-card .press-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: var(--gold-strong); letter-spacing: 0.1em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px; }
+.capstone-press-card .press-source { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3); letter-spacing: 0.02em; }
+.capstone-press-card .press-title { font-size: 16px; font-weight: 600; color: var(--ink); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.01em; }
+.capstone-press-card .press-excerpt { font-size: 13px; color: var(--ink-2); line-height: 1.55; margin-bottom: 12px; }
+.capstone-press-card .press-excerpt em { font-style: italic; color: var(--ink); }
+.capstone-press-card .press-cta { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold-strong); font-weight: 600; letter-spacing: 0.04em; }
+.capstone-press-card .press-cta .arrow { transition: transform 0.2s ease; }
+.capstone-press-card:hover .press-cta .arrow { transform: translateX(3px); }
 @media (max-width: 600px) { .process-flow-strip .pfs-row { grid-template-columns: 1fr; } }
 @media (max-width: 900px) { .capstone-details-grid { grid-template-columns: 1fr; gap: 24px; } .pfd-row { padding: 24px; } .capstone-hero-panel .panel-top { padding: 28px; } }
 .capstone-details-grid .details-prose h4 { font-size: 18px; font-weight: 600; letter-spacing: -0.015em; color: var(--ink); margin-bottom: 12px; margin-top: 20px; }
@@ -1544,6 +1557,16 @@ footer .footer-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px;
           </div>
         </div>
 
+        <a href="https://sarnialambtonresearchpark.ca/awards-presented-at-19th-annual-capstone-design-project-competition/" target="_blank" rel="noopener noreferrer" class="capstone-press-card" aria-label="Read the published award announcement at Western Sarnia-Lambton Research Park (opens in a new tab)">
+          <div class="press-meta">
+            <span class="press-badge">★ Published</span>
+            <span class="press-source">sarnialambtonresearchpark.ca · April 10, 2025</span>
+          </div>
+          <div class="press-title">Awards Presented at 19th Annual Capstone Design Project Competition</div>
+          <div class="press-excerpt"><em>First Place, Waste Valorization: Recovery of Rare Earth Metals from E-Waste.</em> Project engineers: Mohammed Abdulmalik, Lieth Alhumaid, Sharoan Thevasuthan, Oreofe Ogunlude. Recognized by Western Sarnia-Lambton Research Park's official announcement, with judges drawn from ARLANXEO, CF Industries, Kent, Worley, and other regional industry leaders.</div>
+          <div class="press-cta">Read the article <span class="arrow">↗</span></div>
+        </a>
+
         <div class="pfd-row">
           <div class="pfd-label">Process flow diagram (panoramic)</div>
           <img src="images/pfd.jpg" alt="Rare-earth element recovery process flow diagram" style="width: 100%; aspect-ratio: 8104 / 2704; object-fit: cover; border-radius: 10px; display: block;">
@@ -1554,36 +1577,143 @@ footer .footer-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px;
           <div class="pfs-label">Process Flow</div>
           <div class="pfs-row">
             <div class="pfs-step">
+              <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" style="display: block; width: 60px; height: 40px; margin: 0 auto 8px; color: var(--ink-3);">
+                <rect x="3" y="5" width="54" height="30" rx="3" stroke="currentColor" stroke-width="1.4" fill="none"/>
+                <line x1="50" y1="8" x2="50" y2="32" stroke="currentColor" stroke-width="0.7" opacity="0.4"/>
+                <circle cx="18" cy="20" r="10" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.5"/>
+                <circle cx="18" cy="20" r="1.8" style="fill: var(--gold-strong);"/>
+                <line x1="18" y1="20" x2="18" y2="12" stroke="currentColor" stroke-width="1.3">
+                  <animateTransform attributeName="transform" type="rotate" from="0 18 20" to="360 18 20" dur="2s" repeatCount="indefinite"/>
+                </line>
+                <rect x="34" y="13" width="12" height="14" rx="1.5" style="fill: var(--gold-strong);">
+                  <animate attributeName="opacity" values="0.55;1;0.55" dur="2s" repeatCount="indefinite"/>
+                </rect>
+              </svg>
               <div class="pfs-num">01</div>
               <div class="pfs-title">E-Waste Feed</div>
               <div class="pfs-sub">Spent electronics, magnets, batteries</div>
             </div>
             <div class="pfs-arrow">→</div>
             <div class="pfs-step">
+              <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" style="display: block; width: 60px; height: 40px; margin: 0 auto 8px; color: var(--ink-3);">
+                <path d="M 10 6 L 24 24 L 36 24 L 50 6" stroke="currentColor" stroke-width="1.4" fill="none"/>
+                <line x1="24" y1="24" x2="24" y2="32" stroke="currentColor" stroke-width="1.4"/>
+                <line x1="36" y1="24" x2="36" y2="32" stroke="currentColor" stroke-width="1.4"/>
+                <line x1="24" y1="32" x2="36" y2="32" stroke="currentColor" stroke-width="1.4"/>
+                <circle cx="30" r="2.2" style="fill: var(--gold-strong);">
+                  <animate attributeName="cy" values="2;30" dur="1.5s" repeatCount="indefinite"/>
+                  <animate attributeName="r" values="2.4;1.4" dur="1.5s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.75;1" dur="1.5s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="30" r="2.2" style="fill: var(--gold-strong);">
+                  <animate attributeName="cy" values="2;30" dur="1.5s" begin="-0.5s" repeatCount="indefinite"/>
+                  <animate attributeName="r" values="2.4;1.4" dur="1.5s" begin="-0.5s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.75;1" dur="1.5s" begin="-0.5s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="30" r="2.2" style="fill: var(--gold-strong);">
+                  <animate attributeName="cy" values="2;30" dur="1.5s" begin="-1s" repeatCount="indefinite"/>
+                  <animate attributeName="r" values="2.4;1.4" dur="1.5s" begin="-1s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.75;1" dur="1.5s" begin="-1s" repeatCount="indefinite"/>
+                </circle>
+                <circle cy="36" r="1" style="fill: var(--gold-strong);" opacity="0.75">
+                  <animate attributeName="cx" values="27;25;27" dur="1.5s" repeatCount="indefinite"/>
+                </circle>
+                <circle cy="36" r="1" style="fill: var(--gold-strong);" opacity="0.75">
+                  <animate attributeName="cx" values="33;35;33" dur="1.5s" begin="-0.7s" repeatCount="indefinite"/>
+                </circle>
+              </svg>
               <div class="pfs-num">02</div>
               <div class="pfs-title">Pre-treatment</div>
               <div class="pfs-sub">Mechanical separation, sizing</div>
             </div>
             <div class="pfs-arrow">→</div>
             <div class="pfs-step">
+              <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" style="display: block; width: 60px; height: 40px; margin: 0 auto 8px; color: var(--ink-3);">
+                <path d="M 16 6 L 20 6 L 20 8 L 44 8 L 44 6 L 48 6" stroke="currentColor" stroke-width="1.4" fill="none"/>
+                <path d="M 20 8 L 20 32 Q 20 34 22 34 L 42 34 Q 44 34 44 32 L 44 8" stroke="currentColor" stroke-width="1.4" fill="none"/>
+                <line x1="21" y1="18" x2="43" y2="18" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+                <circle cx="26" r="1.4" style="fill: var(--gold-strong);" opacity="0">
+                  <animate attributeName="cy" values="30;14" dur="1.8s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0;0.9;0" keyTimes="0;0.5;1" dur="1.8s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="32" r="1.7" style="fill: var(--gold-strong);" opacity="0">
+                  <animate attributeName="cy" values="30;12" dur="1.8s" begin="-0.6s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0;0.9;0" keyTimes="0;0.5;1" dur="1.8s" begin="-0.6s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="38" r="1.3" style="fill: var(--gold-strong);" opacity="0">
+                  <animate attributeName="cy" values="30;14" dur="1.8s" begin="-1.2s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0;0.9;0" keyTimes="0;0.5;1" dur="1.8s" begin="-1.2s" repeatCount="indefinite"/>
+                </circle>
+              </svg>
               <div class="pfs-num">03</div>
               <div class="pfs-title">Acid Leaching</div>
               <div class="pfs-sub">REE dissolution into solution</div>
             </div>
             <div class="pfs-arrow">→</div>
             <div class="pfs-step">
+              <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" style="display: block; width: 60px; height: 40px; margin: 0 auto 8px; color: var(--ink-3);">
+                <rect x="14" y="6" width="32" height="28" rx="1.5" stroke="currentColor" stroke-width="1.4" fill="none"/>
+                <line x1="15" y1="20" x2="45" y2="20" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 2" opacity="0.65"/>
+                <circle cx="22" r="1.8" style="fill: var(--gold-strong);">
+                  <animate attributeName="cy" values="30;10" dur="2.4s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" dur="2.4s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="30" r="1.8" style="fill: var(--gold-strong);">
+                  <animate attributeName="cy" values="30;10" dur="2.4s" begin="-0.8s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" dur="2.4s" begin="-0.8s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="38" r="1.8" style="fill: var(--gold-strong);">
+                  <animate attributeName="cy" values="30;10" dur="2.4s" begin="-1.6s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" dur="2.4s" begin="-1.6s" repeatCount="indefinite"/>
+                </circle>
+              </svg>
               <div class="pfs-num">04</div>
               <div class="pfs-title">Selective Separation</div>
               <div class="pfs-sub">Solvent extraction, precipitation</div>
             </div>
             <div class="pfs-arrow">→</div>
             <div class="pfs-step highlight">
+              <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" style="display: block; width: 60px; height: 40px; margin: 0 auto 8px; color: var(--ink-3);">
+                <path d="M 14 14 L 14 34 Q 14 36 16 36 L 44 36 Q 46 36 46 34 L 46 14" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.5"/>
+                <line x1="18" y1="8" x2="18" y2="32" stroke="currentColor" stroke-width="2"/>
+                <line x1="42" y1="8" x2="42" y2="32" stroke="currentColor" stroke-width="2"/>
+                <line x1="18" y1="8" x2="42" y2="8" stroke="currentColor" stroke-width="1.2"/>
+                <text x="14" y="6" font-family="JetBrains Mono, monospace" font-size="7" font-weight="700" style="fill: currentColor;">+</text>
+                <text x="42" y="6" font-family="JetBrains Mono, monospace" font-size="8" font-weight="700" style="fill: currentColor;">−</text>
+                <circle r="1.7" style="fill: var(--gold-strong);">
+                  <animateMotion dur="1.4s" repeatCount="indefinite" path="M 18 16 L 42 16"/>
+                </circle>
+                <circle r="1.7" style="fill: var(--gold-strong);">
+                  <animateMotion dur="1.4s" repeatCount="indefinite" begin="-0.45s" path="M 18 22 L 42 22"/>
+                </circle>
+                <circle r="1.7" style="fill: var(--gold-strong);">
+                  <animateMotion dur="1.4s" repeatCount="indefinite" begin="-0.9s" path="M 18 28 L 42 28"/>
+                </circle>
+                <rect y="14" width="0" height="18" style="fill: var(--gold-strong);" opacity="0.75">
+                  <animate attributeName="width" values="0;3.5;0" dur="3s" repeatCount="indefinite"/>
+                  <animate attributeName="x" values="42;38.5;42" dur="3s" repeatCount="indefinite"/>
+                </rect>
+              </svg>
               <div class="pfs-num">05</div>
               <div class="pfs-title">Electrochemical Recovery</div>
               <div class="pfs-sub">Hybrid step, improves selectivity</div>
             </div>
             <div class="pfs-arrow">→</div>
             <div class="pfs-step output">
+              <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" style="display: block; width: 60px; height: 40px; margin: 0 auto 8px; color: var(--ink-3);">
+                <rect x="6" y="11" width="14" height="20" rx="1.5" style="fill: var(--gold-strong);">
+                  <animate attributeName="opacity" values="0.55;1;0.55" dur="2.4s" repeatCount="indefinite"/>
+                </rect>
+                <text x="13" y="24.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="700" style="fill: var(--bg-card);">Nd</text>
+                <rect x="23" y="11" width="14" height="20" rx="1.5" style="fill: var(--gold-strong);">
+                  <animate attributeName="opacity" values="0.55;1;0.55" dur="2.4s" begin="-0.8s" repeatCount="indefinite"/>
+                </rect>
+                <text x="30" y="24.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="700" style="fill: var(--bg-card);">Pr</text>
+                <rect x="40" y="11" width="14" height="20" rx="1.5" style="fill: var(--gold-strong);">
+                  <animate attributeName="opacity" values="0.55;1;0.55" dur="2.4s" begin="-1.6s" repeatCount="indefinite"/>
+                </rect>
+                <text x="47" y="24.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="700" style="fill: var(--bg-card);">Dy</text>
+              </svg>
               <div class="pfs-num">06</div>
               <div class="pfs-title">REE Products</div>
               <div class="pfs-sub">Nd, Pr, Dy at ≥85% recovery</div>
